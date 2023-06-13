@@ -1,0 +1,59 @@
+<html>
+  <script src="https://cdn.jsdelivr.net/npm/ruby-3_2-wasm-wasi@2.0.0/dist/browser.script.iife.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script type="text/ruby">
+    # Here we go for today's number.
+    require 'js'
+    
+    class Ball
+      def initialize(number)
+        @number = number
+      end
+
+      def number
+        @number
+      end
+    end
+
+    class Jar
+      def initialize(balls)
+        @balls = balls
+      end
+
+      def swirl_numbers
+        puts 'Swirl the numbers...'
+      end
+
+      def pick_number
+        @balls[Random.rand(@balls.length)]
+      end
+    end
+
+    # It's Month Day, Year.
+
+    # Ten balls. Each ball has a number. Numbers 1 through ten
+    balls = (1..10).map { |i| Ball.new(i)}
+    jar = Jar.new(balls)
+
+    # Swirl the numbers
+    jar.swirl_numbers
+
+    # Pick a number
+    ball = jar.pick_number
+
+    # Today's number is...
+    JS.global[:document].getElementById('todaysnumber')[:innerHTML] = ball.number
+    
+    # Confetti for good measure
+    confetti_args = {}
+    JS.eval("confetti(#{confetti_args})")
+  </script>
+  <body style="background: black;">
+    <div>
+      <h2 style="color: white; text-align: center; height: 50%; font-size: 8vw; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; letter-spacing: 2vw;">
+        TODAY'S</br>NUMBER</br>&nbsp;&nbsp;IS...
+      </h2>
+      <h5 id="todaysnumber" style="color: red; text-align: center; height: 50%; font-size: 10vh; font-family: cursive;"></h5>
+    </div>
+  </body>
+</html>
