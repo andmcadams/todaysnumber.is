@@ -25,11 +25,15 @@
       end
 
       def pick_number
+        puts @balls.length
         @balls[Random.rand(@balls.length)]
       end
     end
 
     # It's Month Day, Year.
+    d = Time.now.utc
+    srand ((d.month+d.day)**d.year) # Placeholder until I have a server up
+    
 
     # Ten balls. Each ball has a number. Numbers 1 through ten
     balls = (1..10).map { |i| Ball.new(i)}
@@ -41,19 +45,34 @@
     # Pick a number
     ball = jar.pick_number
 
-    # Today's number is...
-    JS.global[:document].getElementById('todaysnumber')[:innerHTML] = ball.number
-    
     # Confetti for good measure
-    confetti_args = {}
-    JS.eval("confetti(#{confetti_args})")
+    require 'json'
+    oatmilk = '#FCFCFB'
+    default_colors = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+    colors = [oatmilk] + default_colors
+    confetti_args = {startVelocity: 100, origin: { x: 0.5, y: 0.8}, gravity: 0.5, particleCount: 10000, spread: 270, scalar: 0.5, ticks: 1000, colors: colors}
+    confetti2_args = {startVelocity: 50, origin: { x: 0.4, y: 0.8}, particleCount: 1000, spread: 120, decay: 0.9, scalar: 0.8, ticks: 1000, angle: 120, drift: -0.4, colors: colors}
+    confetti3_args = {startVelocity: 50, origin: { x: 0.6, y: 0.8}, particleCount: 1000, spread: 120, decay: 0.9, scalar: 0.8, ticks: 1000, angle: 60, drift: 0.4, colors: colors}
+    confetti4_args = {startVelocity: 130, origin: { x: 0.5, y: 0.8}, particleCount: 100, spread: 70, gravity: 0.5, scalar: 10, ticks: 1000, colors: colors}
+    confetti5_args = {startVelocity: 130, origin: { x: 0.45, y: 0.8}, particleCount: 100, spread: 70, gravity: 0.5, scalar: 10, ticks: 1000, angle: 105, colors: colors}
+    confetti6_args = {startVelocity: 130, origin: { x: 0.55, y: 0.8}, particleCount: 100, spread: 70, gravity: 0.5, scalar: 10, ticks: 1000, angle: 75, colors: colors}
+    JS.eval("confetti(#{JSON.pretty_generate(confetti_args)})")
+    JS.eval("confetti(#{JSON.pretty_generate(confetti2_args)})")
+    JS.eval("confetti(#{JSON.pretty_generate(confetti3_args)})")
+    JS.eval("confetti(#{JSON.pretty_generate(confetti4_args)})")
+    JS.eval("confetti(#{JSON.pretty_generate(confetti5_args)})")
+    JS.eval("confetti(#{JSON.pretty_generate(confetti6_args)})")
+
+    # Today's number is...
+    todays_number_elem = JS.global[:document].getElementById('todaysnumber')
+    JS.global[:document].getElementById('todaysnumber')[:innerHTML] = ball.number
   </script>
   <body style="background: black;">
     <div>
       <h2 style="color: white; text-align: center; height: 50%; font-size: 8vw; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; letter-spacing: 2vw;">
         TODAY'S</br>NUMBER</br>&nbsp;&nbsp;IS...
       </h2>
-      <h5 id="todaysnumber" style="color: red; text-align: center; height: 50%; font-size: 10vh; font-family: cursive;"></h5>
+      <h5 id="todaysnumber" style="color: red; text-align: center; font-size: 10vh; font-family: cursive;"></h5>
     </div>
   </body>
 </html>
