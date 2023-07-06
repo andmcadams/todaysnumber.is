@@ -1,4 +1,8 @@
 <html>
+  <script type="text/javascript">
+    fetch('https://dixwh3awhptkjeo45pjsj66nhi0siqvq.lambda-url.us-east-1.on.aws/')
+      .then(r => r.json().then((result) => document.getElementById('todaysnumber').innerHTML = result))
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/ruby-3_2-wasm-wasi@2.0.0/dist/browser.script.iife.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script type="text/ruby">
@@ -50,7 +54,7 @@
     oatmilk = '#FCFCFB'
     default_colors = ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
     colors = [oatmilk] + default_colors
-    confetti_args = {startVelocity: 100, origin: { x: 0.5, y: 0.8}, gravity: 0.5, particleCount: 10000, spread: 270, scalar: 0.5, ticks: 1000, colors: colors}
+    confetti_args = {startVelocity: 100, origin: { x: 0.5, y: 0.8}, gravity: 1.5, particleCount: 10000, spread: 270, scalar: 0.5, ticks: 1000, colors: colors}
     confetti2_args = {startVelocity: 50, origin: { x: 0.4, y: 0.8}, particleCount: 1000, spread: 120, decay: 0.9, scalar: 0.8, ticks: 1000, angle: 120, drift: -0.4, colors: colors}
     confetti3_args = {startVelocity: 50, origin: { x: 0.6, y: 0.8}, particleCount: 1000, spread: 120, decay: 0.9, scalar: 0.8, ticks: 1000, angle: 60, drift: 0.4, colors: colors}
     confetti4_args = {startVelocity: 130, origin: { x: 0.5, y: 0.8}, particleCount: 100, spread: 70, gravity: 0.5, scalar: 10, ticks: 1000, colors: colors}
@@ -65,14 +69,14 @@
 
     # Today's number is...
     todays_number_elem = JS.global[:document].getElementById('todaysnumber')
-    JS.global[:document].getElementById('todaysnumber')[:innerHTML] = ball.number
+    JS.global[:document].getElementById('todaysnumber')[:style][:visibility] = 'visible'
   </script>
   <body style="background: black;">
     <div>
       <h2 style="color: white; text-align: center; height: 50%; font-size: 8vw; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; letter-spacing: 2vw;">
         TODAY'S</br>NUMBER</br>&nbsp;&nbsp;IS...
       </h2>
-      <h5 id="todaysnumber" style="color: red; text-align: center; font-size: 10vh; font-family: cursive;"></h5>
+      <h5 id="todaysnumber" style="color: red; text-align: center; font-size: 10vh; font-family: cursive; visibility: hidden;"></h5>
     </div>
   </body>
 </html>
