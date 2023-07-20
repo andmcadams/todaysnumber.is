@@ -1,7 +1,9 @@
 <html>
   <script type="text/javascript">
-    fetch('https://dixwh3awhptkjeo45pjsj66nhi0siqvq.lambda-url.us-east-1.on.aws/')
-      .then(r => r.json().then((result) => document.getElementById('todaysnumber').innerHTML = result))
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch('https://dixwh3awhptkjeo45pjsj66nhi0siqvq.lambda-url.us-east-1.on.aws/')
+        .then(r => r.json().then((result) => document.getElementById('todaysnumber').innerHTML = result))
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/ruby-3_2-wasm-wasi@2.0.0/dist/browser.script.iife.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
